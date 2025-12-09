@@ -1,0 +1,88 @@
+services:
+
+  authentication.service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Host=authentication.service.database;Port=5432;Database=authentication;Username=developer;Password=Developer123!
+      - Jwt__Issuer=test_issuer
+      - Jwt__Audience=test_audience
+      - Jwt__Key=very-very-very-very-very-very-very-very-very-very-very-very-secret-key 
+      - Jwt__AccessTokenLifetimeMinutes=180 
+    ports:
+      - "8080:8080"
+
+  order.service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8081
+      - ConnectionStrings__DefaultConnection=Host=order.service.database;Port=5432;Database=orders;Username=developer;Password=Developer123!
+      - Jwt__Issuer=test_issuer
+      - Jwt__Audience=test_audience
+      - Jwt__Key=very-very-very-very-very-very-very-very-very-very-very-very-secret-key 
+      - Jwt__AccessTokenLifetimeMinutes=180 
+      - MessageBroker__Host=amqp://rabbit.mq:5672
+      - MessageBroker__Username=developer
+      - MessageBroker__Password=developer123! 
+      - UserServiceBaseUrl=http://authentication.service:8080/api/v1/users/ 
+    ports:
+      - "8081:8081"
+
+  authentication.service.database:
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_DB=authentication
+      - POSTGRES_PASSWORD=Developer123!
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U developer -d authentication"]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+      start_period: 20s
+
+  order.service.database:
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_DB=orders
+      - POSTGRES_PASSWORD=Developer123!
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U developer -d orders"]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+      start_period: 20s
+
+  rabbit.mq:
+    environment:
+      - RABBITMQ_DEFAULT_USER=developer
+      - RABBITMQ_DEFAULT_PASS=developer123!
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8083
+      - ASPNETCORE_HTTPS_PORTS=8082
+      - Jwt__Issuer=test_issuer
+      - Jwt__Audience=test_audience
+      - Jwt__Key=very-very-very-very-very-very-very-very-very-very-very-very-secret-key 
+      - Jwt__AccessTokenLifetimeMinutes=180 
+    ports:
+      - "8083:8083"
+      - "8082:8082"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

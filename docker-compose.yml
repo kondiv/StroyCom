@@ -1,0 +1,77 @@
+services:
+  authentication.service:
+    image: ${DOCKER_REGISTRY-}authentication.service
+    build:
+      context: .
+      dockerfile: AuthenticationService/Dockerfile
+    networks:
+      - internal
+      - internal.authentication.service
+      - public 
+    depends_on:
+      authentication.service.database:
+        condition: service_healthy
+
+  order.service:
+    image: ${DOCKER_REGISTRY-}order.service
+    build:
+      context: .
+      dockerfile: OrderService/Dockerfile
+    networks:
+      - internal
+      - internal.order.service
+      - public 
+    depends_on:
+      order.service.database:
+        condition: service_healthy
+      rabbit.mq:
+        condition: service_healthy
+
+  authentication.service.database:
+    image: postgres:18
+    networks:
+      - internal.authentication.service
+      - public 
+    volumes:
+      - authentication.service.volume:/var/lib/postgresql
+
+  order.service.database:
+    image: postgres:18
+    networks:
+      - internal.order.service
+      - public
+    volumes:
+      - order.service.volume:/var/lib/postgresql
+
+  rabbit.mq:
+    image: rabbitmq:management
+    networks:
+      - internal
+      - public   
+    volumes:
+      - rabbit.mq.volume:/var/lib/rabbitmq
+    
+
+  gateway:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    networks:
+      - public
+      - internal 
+
+networks:
+  public:
+    internal: false
+  internal:
+    internal: true
+  internal.order.service:
+    internal: true
+  internal.authentication.service:
+    internal: true
+
+volumes:
+  authentication.service.volume: 
+  order.service.volume:
+  rabbit.mq.volume: 

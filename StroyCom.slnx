@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="AuthenticationService/AuthenticationService.csproj" />
+  <Project Path="Contracts/Contracts.csproj" Id="1b3ba84f-795a-468d-96c9-f8a9045d91f2" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="Gateway/Gateway.csproj" Id="6100fecd-8066-466e-9054-f264b7f4fed5" />
+  <Project Path="OrderService/OrderService.csproj" Id="b6e55bb3-8881-48e8-b34f-864a21030dc6" />
+</Solution>
