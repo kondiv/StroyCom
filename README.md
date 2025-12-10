@@ -41,7 +41,7 @@ API на .NET 10, построенное по принципам **Vertical Slic
 - POST /api/v1/auth/log-in
 
 ### Пользователи
-- GET /api/v1/
+- GET /api/v1/users/{id}:exists
 
 ### Заказы
 - GET /api/v1/orders
@@ -49,6 +49,10 @@ API на .NET 10, построенное по принципам **Vertical Slic
 - POST /api/v1/orders
 - POST /api/v1/orders/{id}/status:change
 - DELETE /api/v1/orders/{id}
+
+### Через Gateway
+- Аутентификация: /auth/
+- Заказы: /orders/
 
 ## Unit тесты
 Unit тесты реализованы для логики регистрации и авторизации
