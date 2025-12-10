@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "51cf0b91-c4c9-481e-af1d-e0b61b9d35f6",
+		"name": "StroyCom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45438689",
+		"_collection_link": "https://ilya-2147099.postman.co/workspace/Ilya's-Workspace~a408a66d-8f0e-44ff-89cd-9ea860ea2d97/collection/45438689-51cf0b91-c4c9-481e-af1d-e0b61b9d35f6?action=share&source=collection_link&creator=45438689"
+	},
+	"item": [
+		{
+			"name": "SignIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin1@mail.com\",\r\n  \"name\": \"Админчик\",\r\n  \"password\": \"Admin123!\",\r\n  \"roles\": [\r\n    \"admin\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/auth/sign-in",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"auth",
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"position\": {\r\n    \"item\": \"AMD Ryzen 5 5600x\",\r\n    \"quantity\": 2\r\n  },\r\n  \"totalSum\": 29890.85\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/orders",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin1@mail.com\",\r\n  \"password\": \"Admin123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/auth/log-in",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"auth",
+						"log-in"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
