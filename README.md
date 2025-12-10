@@ -37,13 +37,16 @@ API на .NET 10, построенное по принципам **Vertical Slic
 ## Доступные эндпоинты
 
 ### Аутентификация
+- BaseUrl http://localhost:8080
 - POST /api/v1/auth/sing-in
 - POST /api/v1/auth/log-in
 
 ### Пользователи
+- BaseUrl http://localhost:8080
 - GET /api/v1/users/{id}:exists
 
 ### Заказы
+- BaseUrl http://localhost:8081
 - GET /api/v1/orders
 - GET /api/v1/orders/{id}
 - POST /api/v1/orders
@@ -51,8 +54,8 @@ API на .NET 10, построенное по принципам **Vertical Slic
 - DELETE /api/v1/orders/{id}
 
 ### Через Gateway
-- Аутентификация: /auth/
-- Заказы: /orders/
+- Аутентификация: https://localhost:8082/auth/{**catch-all}
+- Заказы: https://localhost:8082/orders/{**catch-all}
 
 ## Unit тесты
 Unit тесты реализованы для логики регистрации и авторизации
