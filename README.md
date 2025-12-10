@@ -1,5 +1,5 @@
 # StroyCom
-API на .NET 10, построенное по принципам **Vertical Slice Architecture**.
+API на .NET 10 c **Микросервисной архитектурой**.
 
 ## Технологический стек
 
@@ -38,7 +38,7 @@ API на .NET 10, построенное по принципам **Vertical Slic
 
 ### Аутентификация
 - BaseUrl http://localhost:8080
-- POST /api/v1/auth/sing-in
+- POST /api/v1/auth/sign-in
 - POST /api/v1/auth/log-in
 
 ### Пользователи
