@@ -22,6 +22,9 @@ public sealed class SignInCommandValidator : AbstractValidator<SignInCommand>
             .Matches(@"[0-9]").WithMessage("At least one digit required")
             .MinimumLength(6).WithMessage("Password minimum length 6");
 
+        RuleFor(c => c.Roles)
+            .NotEmpty().WithMessage("Role is required");
+
         RuleForEach(c => c.Roles)
             .NotEmpty().WithMessage("Role is required")
             .Must(BeValidRole).WithName("Must be valid role");

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthenticationService.Infrastructure;
 
-public sealed class ServiceContext : DbContext
+public class ServiceContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
 
